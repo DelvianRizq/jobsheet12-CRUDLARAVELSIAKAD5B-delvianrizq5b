@@ -16,7 +16,7 @@
                     <td>{{ $loop->iteration }}</td>
                     @foreach ($kolom as $kunci => $judul)
                         <td>
-                            @if ($kunci === 'status')
+                           @if ($kunci === 'status')
                                 @php
                                     $warna = match ($item[$kunci]) {
                                         'Aktif', 'Disetujui' => 'success',
@@ -28,6 +28,10 @@
                                 <span class="badge text-bg-{{ $warna }}">
                                     {{ $item[$kunci] }}
                                 </span>
+                            @elseif ($kunci === 'nim' && Route::has('mahasiswa.show'))
+                                <a href="{{ route('mahasiswa.show', $item[$kunci]) }}" class="text-decoration-none fw-semibold">
+                                    {{ $item[$kunci] }}
+                                </a>
                             @else
                                 {{ $item[$kunci] }}
                             @endif
