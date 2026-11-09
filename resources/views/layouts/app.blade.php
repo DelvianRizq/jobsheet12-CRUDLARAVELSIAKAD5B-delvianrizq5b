@@ -24,9 +24,8 @@
             </main>
         </div>
     </div>
-    <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    @stack('scripts')
 
+    <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const toggleBtn = document.getElementById('themeToggle');
@@ -44,7 +43,7 @@
                 toggleBtn.addEventListener('click', function () {
                     const currentTheme = htmlElem.getAttribute('data-bs-theme');
                     const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-                    
+
                     htmlElem.setAttribute('data-bs-theme', newTheme);
                     localStorage.setItem('theme', newTheme);
                     updateIcon(newTheme);
@@ -62,5 +61,8 @@
             }
         });
     </script>
+    <!-- SweetAlert2 Lokal -->
+    <script src="{{ asset('vendor/sweetalert2/sweetalert2.all.min.js') }}"></script>
+    @stack('scripts')
 </body>
 </html>

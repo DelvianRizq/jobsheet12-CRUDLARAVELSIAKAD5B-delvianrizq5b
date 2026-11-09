@@ -6,7 +6,7 @@
     <title>@yield('title', 'Masuk') | {{ config('app.name') }}</title>
 
     <link href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('vendor/bootstrap-icons/bootstrap-icons.min.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 </head>
 <body class="bg-body-tertiary">
@@ -17,5 +17,7 @@
     </main>
 
     <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('vendor/sweetalert2/sweetalert2.all.min.js') }}"></script>
+    @stack('scripts')
 </body>
 </html>

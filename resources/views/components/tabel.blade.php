@@ -16,7 +16,7 @@
                     <td>{{ $loop->iteration }}</td>
                     @foreach ($kolom as $kunci => $judul)
                         <td>
-                           @if ($kunci === 'status')
+                            @if ($kunci === 'status')
                                 @php
                                     $warna = match ($item[$kunci]) {
                                         'Aktif', 'Disetujui' => 'success',
@@ -32,6 +32,8 @@
                                 <a href="{{ route('mahasiswa.show', $item[$kunci]) }}" class="text-decoration-none fw-semibold">
                                     {{ $item[$kunci] }}
                                 </a>
+                            @elseif ($kunci === 'last_login_at')
+                                {{ !empty($item[$kunci]) ? \Carbon\Carbon::parse($item[$kunci])->format('d-m-Y H:i:s') : 'Belum Pernah Login' }}
                             @else
                                 {{ $item[$kunci] }}
                             @endif
@@ -45,6 +47,6 @@
                     </td>
                 </tr>
             @endforelse
-        </tbody>
+            </tbody>
     </table>
 </div>

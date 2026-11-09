@@ -1,33 +1,84 @@
-<form action="#" method="post">
-    @csrf
-    <div class="row g-3">
-        <div class="col-md-4">
-            <x-form-input label="NIM" name="nim" />
-        </div>
-        <div class="col-md-8">
-            <x-form-input label="Nama Lengkap" name="nama" />
-        </div>
-        <div class="col-md-6">
-            <x-form-input label="Email" name="email" type="email" />
-        </div>
-        <div class="col-md-3">
-            <x-form-input label="Angkatan" name="angkatan" type="number" />
-        </div>
-        <div class="col-md-3">
-            <label for="status" class="form-label">Status</label>
-            <select id="status" name="status" class="form-select">
-                <option>Aktif</option>
-                <option>Cuti</option>
-                <option>Lulus</option>
-            </select>
-        </div>
-        <div class="col-12">
-            <label for="alamat" class="form-label">Alamat</label>
-            <textarea id="alamat" name="alamat" rows="2" class="form-control"></textarea>
-        </div>
-    </div>
-    <div class="mt-3 d-flex gap-2">
-        <button type="button" class="btn btn-primary">Simpan</button>
-        <button type="reset" class="btn btn-outline-secondary">Reset</button>
-    </div>
-</form>
+@csrf
+
+<div class="mb-3">
+    <label for="nim" class="form-label">NIM</label>
+    <input type="text" 
+           class="form-control @error('nim') is-invalid @enderror" 
+           id="nim" 
+           name="nim" 
+           value="{{ old('nim', $mahasiswa->nim) }}" 
+           maxlength="15" 
+           required 
+           autofocus>
+    @error('nim')
+        <div class="invalid-feedback">{{ $message }}</div>
+    @enderror
+</div>
+
+<div class="mb-3">
+    <label for="nama" class="form-label">Nama Mahasiswa</label>
+    <input type="text" 
+           class="form-control @error('nama') is-invalid @enderror" 
+           id="nama" 
+           name="nama" 
+           value="{{ old('nama', $mahasiswa->nama) }}" 
+           maxlength="100" 
+           required>
+    @error('nama')
+        <div class="invalid-feedback">{{ $message }}</div>
+    @enderror
+</div>
+
+<div class="mb-3">
+    <label for="jenis_kelamin" class="form-label">Jenis Kelamin</label>
+    <select class="form-select @error('jenis_kelamin') is-invalid @enderror" id="jenis_kelamin" name="jenis_kelamin" required>
+        <option value="">-- Pilih Jenis Kelamin --</option>
+        <option value="L" {{ old('jenis_kelamin', $mahasiswa->jenis_kelamin) == 'L' ? 'selected' : '' }}>Laki-laki</option>
+        <option value="P" {{ old('jenis_kelamin', $mahasiswa->jenis_kelamin) == 'P' ? 'selected' : '' }}>Perempuan</option>
+    </select>
+    @error('jenis_kelamin')
+        <div class="invalid-feedback">{{ $message }}</div>
+    @enderror
+</div>
+
+<div class="mb-3">
+    <label for="email" class="form-label">Email</label>
+    <input type="email" 
+           class="form-control @error('email') is-invalid @enderror" 
+           id="email" 
+           name="email" 
+           value="{{ old('email', $mahasiswa->email) }}" 
+           maxlength="100" 
+           required>
+    @error('email')
+        <div class="invalid-feedback">{{ $message }}</div>
+    @enderror
+</div>
+
+<div class="mb-3">
+    <label for="angkatan" class="form-label">Angkatan</label>
+    <input type="number" 
+           class="form-control @error('angkatan') is-invalid @enderror" 
+           id="angkatan" 
+           name="angkatan" 
+           value="{{ old('angkatan', $mahasiswa->angkatan) }}" 
+           placeholder="Contoh: 2024" 
+           required>
+    @error('angkatan')
+        <div class="invalid-feedback">{{ $message }}</div>
+    @enderror
+</div>
+
+<div class="mb-3">
+    <label for="program_studi" class="form-label">Program Studi</label>
+    <input type="text" 
+           class="form-control @error('program_studi') is-invalid @enderror" 
+           id="program_studi" 
+           name="program_studi" 
+           value="{{ old('program_studi', $mahasiswa->program_studi ?? 'D3 Teknik Informatika') }}" 
+           maxlength="100" 
+           required>
+    @error('program_studi')
+        <div class="invalid-feedback">{{ $message }}</div>
+    @enderror
+</div>

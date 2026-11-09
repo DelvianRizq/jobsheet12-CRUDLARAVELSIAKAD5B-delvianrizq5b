@@ -16,18 +16,59 @@
         <h2 class="h5 mb-3">Masuk ke akun Anda</h2>
         <form method="POST" action="{{ route('login.attempt') }}" novalidate>
             @csrf
+            
             <div class="mb-3">
                 <x-form-input label="Email" name="email" type="email" autocomplete="username" required autofocus />
             </div>
+
             <div class="mb-3">
-                <x-form-input label="Kata Sandi" name="password" type="password" autocomplete="current-password" required />
+                <label for="password" class="form-label">Kata Sandi</label>
+                <div class="input-group">
+                    <input type="password" 
+                           class="form-control @error('password') is-invalid @enderror" 
+                           id="password" 
+                           name="password" 
+                           required>
+                    <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+                        <i class="bi bi-eye-slash" id="toggleIcon"></i>
+                    </button>
+                </div>
+                @error('password')
+                    <div class="invalid-feedback d-block">
+                        {{ $message }}
+                    </div>
+                @enderror
             </div>
+
             <div class="form-check mb-3">
                 <input class="form-check-input" type="checkbox" name="remember" id="remember">
                 <label class="form-check-label" for="remember">Ingat saya</label>
             </div>
+
             <button type="submit" class="btn btn-primary w-100">Masuk</button>
         </form>
     </div>
 </div>
 @endsection
+
+@push('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const togglePassword = document.querySelector('#togglePassword');
+        const password = document.querySelector('#password');
+        const toggleIcon = document.querySelector('#toggleIcon');
+
+        if (togglePassword && password && toggleIcon) {
+            togglePassword.addEventListener('click', function () {
+                // Toggle tipe atribut input antara password dan text
+                const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+                password.setAttribute('type', type);
+                
+                // Toggle ikon mata (bi-eye-slash <-> bi-eye)
+                toggleIcon.classList.toggle('bi-eye');
+                toggleIcon.classList.toggle('bi-eye-slash');
+            });
+        }
+    });
+</script>
+@endpush

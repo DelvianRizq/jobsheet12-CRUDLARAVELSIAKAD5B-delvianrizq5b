@@ -17,7 +17,7 @@ class LoginController extends Controller
         return view('auth.login');
     }
 
-    public function authenticate(Request $request): RedirectResponse
+        public function authenticate(Request $request): RedirectResponse
     {
         $credentials = $request->validate([
             'email' => ['required', 'email'],
@@ -38,6 +38,12 @@ class LoginController extends Controller
         if (Auth::attempt($credentials, $request->boolean('remember'))) {
             RateLimiter::clear($key);
             $request->session()->regenerate();
+
+            // Update waktu login terakhir saat berhasil
+            Auth::user()->update([
+                'last_login_at' => now(),
+            ]);
+
             $pesan = 'Login berhasil. Selamat datang, ' . Auth::user()->name . '.';
             return redirect()->intended(route('dashboard'))->with('success', $pesan);
         }
